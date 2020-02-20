@@ -27,7 +27,7 @@ if __name__ == '__main__':
     # WHILE D > 0
     while D > 0:
         best_library = -1
-        best_score = -1
+        best_score = 0
         best_books = None
         for library in libraries.values():
             score, books = evaluate(library, D, book_scores)
