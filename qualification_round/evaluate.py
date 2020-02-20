@@ -1,3 +1,3 @@
 
-def evaluate(library, remaining_days):
+def evaluate(library, remaining_days, book_scores):
     pass
