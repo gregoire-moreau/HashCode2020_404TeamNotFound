@@ -1,4 +1,3 @@
-
 def find_greedy(M, slice_n, indices):
     sum_ind = 0
     ind = []
