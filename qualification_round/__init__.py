@@ -11,7 +11,7 @@ if __name__ == '__main__':
         D = int(first[2])
         line = f.readline().strip().split()
         book_scores = {i:int(line[i]) for i in range(len(line))}
-        libraries = []
+        libraries = {}
         library_books = {i:[] for i in range(B)}
         output = []
         for i in range(L):
@@ -23,31 +23,32 @@ if __name__ == '__main__':
             for book in books:
                 library_books[book].append(i)
             books.sort(key=lambda x: book_scores[x], reverse=True)
-            libraries.append((i, N, T, M, books))
+            libraries[i] = (i, N, T, M, books)
     # WHILE D > 0
     while D > 0:
-        best_library = None
+        best_library = -1
         best_score = -1
         best_books = None
-        for library in libraries:
+        for library in libraries.values():
             score, books = evaluate(library, D, book_scores)
             if score > best_score:
                 best_score = score
-                best_library = library
+                best_library = library[0]
                 best_books = books
-        if not best_library:
+        if best_library == -1:
             break
 
         # FIND BEST LIBRARY
         # ADD TO OUTPUT LIBRARY AND ITS BOOKS
         # REMOVE BOOKS
         # REMOVE LIBRARY
-        choose_library(best_library, output, book_scores, libraries, library_books)
+        D -= libraries[best_library][2]
+        choose_library(best_library, output, libraries, library_books, best_books)
         # DECREASE D
-        D -= best_library[2]
+
 
     with open('output/'+FILE+'.txt', 'w') as out:
-        out.write(len(output))
+        out.write(str(len(output)))
         out.write('\n')
         for library in output:
             out.write('%d %d\n' % (library[0], len(library[1])))
