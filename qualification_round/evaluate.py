@@ -6,9 +6,9 @@ def evaluate_count(library, remaining_days, book_scores):
     return score, library[4][:score]
 
 
-def evaluate(library, remaining_days, book_scores):
+def evaluate(library, remaining_days, book_scores, library_books, max_occ):
     number, books = evaluate_count(library, remaining_days, book_scores)
     score = 0
     for book in books:
         score += book_scores[book]
-    return score / library[2], books
+    return score/library[2], books
